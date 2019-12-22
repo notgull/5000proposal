@@ -37,6 +37,10 @@
 $atomic-age: 'Atomic Age', sans-serif;
 $courier-prime: 'Courier Prime', serif;
 
+// color variables
+$datapad-border: #0044b5;
+$retro-green: #3bff22;
+
 .atomic-age {
   font-family: $atomic-age;
   font-weight: bold;
@@ -52,6 +56,10 @@ $courier-prime: 'Courier Prime', serif;
   width: 100%;
 }
 
+%shadow {
+  box-shadow: 0 3px 5px #000,0 3px 9px rgba(0,0,0,.5);
+}
+
 @mixin hyphens($type) {
   -webkit-hyphens: $type;
   -ms-hyphens: $type;
@@ -60,46 +68,69 @@ $courier-prime: 'Courier Prime', serif;
 
 // loaded file indicator
 .load-file-indicator {
-  @extend %width-100;
+  width: 80%;
 
   tr {
     @extend %width-100;
    
     td {
       margin: 2px 3px;
+      font-size: 125%;
     }
 
     td:not(.textbox) {
       @extend .atomic-age;
-      width: 18%;
+      padding-left: 30px;
     }
 
     td.textbox {
       @extend .courier-prime;
-      width: 78%;
+      width: 75%;
       background-color: black;
-      color: #3bff22;
+      color: $retro-green;
+      padding: 0 10px;
+      margin-right: 10px;
+      border: 2px solid $datapad-border;
     }
   }
 }
 
 // datapad
 #datapad {
+  background-color: #43659d;
+  border: 3px solid black;
+  border-radius: 19.2px;
+  
   p#datapad-label-top {
     @extend .atomic-age;
-    font-size: 50%;
     text-align: center;
   }
 
   p#datapad-label {
     @extend .atomic-age;
+    font-size: 250%;
     text-align: center;
+    margin-top: -8px;
+    margin-bottom: 2px;
   }
 
   div#datapad-scroll-area {
     overflow-y: scroll;
     overflow-x: visible;
     @include hyphens(auto);
-    height: 700px;
+    height: 500px;
+
+    margin: 25px;
+    padding: 10px;
+    border: 2px solid $datapad-border;
   }
+}
+
+// classes
+.retro {
+  @extend .courier-prime;
+  background-color: black;
+  color: $retro-green;
+
+  font-size: 150%;
 }

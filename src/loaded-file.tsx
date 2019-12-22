@@ -106,7 +106,7 @@ export class LoadedFile extends Component<LoadedFileProps, LoadedFileState> {
     return (
       <table class="load-file-indicator">
         <tr>
-          <td>Loaded</td>
+          <td>Loaded File</td>
           <td class="textbox">{this.state.curtext}</td>
         </tr>
       </table>

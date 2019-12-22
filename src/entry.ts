@@ -40,7 +40,7 @@ export class DatapadEntry {
     public classname: string,
     element: HTMLElement | string
   ) {
-    if (element instanceof String) {
+    if (typeof element === "string") {
       const retrElem = document.getElementById(<string> element);
       if (!retrElem) {
         throw new Error("Retrieved null element");

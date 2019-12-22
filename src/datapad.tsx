@@ -60,6 +60,7 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
   updateInnerRef() {
     if (this.innerRef) {
       this.innerRef.innerHTML = "";
+      console.log(this.state.currentEntry);
       this.innerRef.appendChild(this.state.currentEntry.element);
     }
   }
@@ -79,7 +80,7 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
         <p id="datapad-label-top">Pentagonix</p>
         <p id="datapad-label">DATAPAD</p>
         <LoadedFile name={this.state.currentEntry.fname} />
-        <div id="datapad-scroll-area" ref={this.setInnerRef.bind(this)} />
+        <div class={this.state.currentEntry.classname} id="datapad-scroll-area" ref={this.setInnerRef.bind(this)} />
       </div>
     );
   }
