@@ -41,6 +41,8 @@ export interface DatapadProps {
 export interface DatapadState {
   currentEntry: DatapadEntry;
   currentIndex: number;
+
+  isolatedContext: boolean;
 }
 
 export class Datapad extends Component<DatapadProps, DatapadState> {
@@ -53,14 +55,15 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
 
     this.state = {
       currentEntry: this.props.entries[0] as DatapadEntry,
-      currentIndex: 0
+      currentIndex: 0,
+
+      isolatedContext: false
     };
   }
 
   updateInnerRef() {
     if (this.innerRef) {
-      this.innerRef.innerHTML = "";
-      console.log(this.state.currentEntry);
+      this.innerRef.innerHTML = ""; 
       this.innerRef.appendChild(this.state.currentEntry.element);
     }
   }
@@ -71,16 +74,78 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
   }
 
   componentDidUpdate(prevProps: DatapadProps, prevState: DatapadState) {
-    this.updateInnerRef();
+    if (prevState.currentIndex !== this.state.currentIndex) {
+      this.updateInnerRef();
+    }
+  }
+
+  // move to the iteration at the given index
+  moveToIteration(index: number, isolated: boolean) {
+    this.setState((s: DatapadState): DatapadState => {
+      return Object.assign({}, s, 
+        { 
+          currentIndex: index, 
+          currentEntry: this.props.entries[index], 
+          isolatedContext: isolated 
+        }
+      );
+    });
+  }
+
+  // move to the next iteration
+  moveToNext() {
+    if (this.state.isolatedContext) {
+      return;
+    }
+
+    const nextIndex = this.state.currentIndex + 1;
+    if (nextIndex > this.props.entries.length - 1) {
+      return;
+    }
+
+    if (this.props.entries[nextIndex] === "stop") {
+      return;
+    }
+
+    this.moveToIteration(nextIndex, false);
+  }
+
+  // move to previous iteration
+  moveToPrevious() {
+    if (this.state.isolatedContext) {
+      return;
+    }
+
+    const prevIndex = this.state.currentIndex - 1;
+    if (prevIndex < 0) {
+      return;
+    }
+
+    this.moveToIteration(prevIndex, false);
   }
 
   render() {
+    const tdStyle = {
+      margin: "auto",
+      "text-align": "center"
+    };
+ 
     return (
       <div id="datapad">
         <p id="datapad-label-top">Pentagonix</p>
         <p id="datapad-label">DATAPAD</p>
         <LoadedFile name={this.state.currentEntry.fname} />
         <div class={this.state.currentEntry.classname} id="datapad-scroll-area" ref={this.setInnerRef.bind(this)} />
+        <table id="datapad-pager">
+          <tr style="font-size: 500%; text-align: center">
+            <td style={tdStyle}>
+              <a onClick={this.moveToPrevious.bind(this)}><img alt="◀ " /></a>
+            </td>
+            <td style={tdStyle}>
+              <a onClick={this.moveToNext.bind(this)}><img alt=" ▶" /></a>
+            </td>
+          </tr>
+        </table>
       </div>
     );
   }

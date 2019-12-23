@@ -124,6 +124,11 @@ $retro-green: #3bff22;
     padding: 10px;
     border: 2px solid $datapad-border;
   }
+
+  table#datapad-pager {
+    @extend %width-100;
+    margin-bottom: 20px;
+  }
 }
 
 // classes
@@ -133,4 +138,10 @@ $retro-green: #3bff22;
   color: $retro-green;
 
   font-size: 150%;
+}
+
+.standard {
+  background-color: white;
+  font-size: 125%;
+  color: black;
 }
