@@ -132,7 +132,7 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
  
     return (
       <div id="datapad">
-        <p id="datapad-label-top">Pentagonix</p>
+        <p id="datapad-label-top">Paragon Technologies</p>
         <p id="datapad-label">DATAPAD</p>
         <LoadedFile name={this.state.currentEntry.fname} />
         <div class={this.state.currentEntry.classname} id="datapad-scroll-area" ref={this.setInnerRef.bind(this)} />

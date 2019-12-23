@@ -62,11 +62,14 @@ export class LoadedFile extends Component<LoadedFileProps, LoadedFileState> {
 
   // there is a text-cycling animation - run this when the name changes
   private operateTextChangeFrame() {
-    if (this.state.curname === this.state.curtext) {
-      return;
-    }
+    console.log("Running text frame");
+    console.log(this.state.curname + " " + this.state.curtext); 
 
     setTimeout(() => {
+      if (this.state.curname === this.state.curtext) {
+        return;
+      }
+
       this.setState((s: LoadedFileState): LoadedFileState => {
         let mutatableState = Object.assign({}, s);
  
@@ -93,6 +96,7 @@ export class LoadedFile extends Component<LoadedFileProps, LoadedFileState> {
   }
 
   componentDidUpdate(prevProps: LoadedFileProps) {
+    console.log(`Old Name: ${prevProps.name}\nNew Name: ${this.props.name}`);
     if (this.props.name !== prevProps.name) {
       this.setState((s: LoadedFileState): LoadedFileState => {
         return Object.assign({}, s, { curname: this.props.name, isStartOfAnimation: true });
