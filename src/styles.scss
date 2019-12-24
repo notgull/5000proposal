@@ -38,7 +38,7 @@ $atomic-age: 'Atomic Age', sans-serif;
 $courier-prime: 'Courier Prime', serif;
 
 // color variables
-$datapad-border: #0044b5;
+$datapad-border: #70706F;
 $retro-green: #3bff22;
 
 .atomic-age {
@@ -68,7 +68,7 @@ $retro-green: #3bff22;
 
 // loaded file indicator
 .load-file-indicator {
-  width: 80%;
+  width: 96%;
 
   tr {
     @extend %width-100;
@@ -89,15 +89,17 @@ $retro-green: #3bff22;
       background-color: black;
       color: $retro-green;
       padding: 0 10px;
+      padding-top: 2px;
       margin-right: 10px;
       border: 2px solid $datapad-border;
+      overflow: hidden;
     }
   }
 }
 
 // datapad
 #datapad {
-  background-color: #43659d;
+  background-image: linear-gradient(to left top, #7D7D7A, #8E8D8D, #A1A2A3, #B3B6B5, #BEC0C2);
   border: 3px solid black;
   border-radius: 19.2px;
   
@@ -122,6 +124,7 @@ $retro-green: #3bff22;
 
     margin: 25px;
     padding: 10px;
+    padding-top: 0px;
     border: 2px solid $datapad-border;
   }
 
@@ -129,6 +132,54 @@ $retro-green: #3bff22;
     @extend %width-100;
     margin-bottom: 20px;
   }
+}
+
+// scp header
+$foundation-table-border: 3px solid black;
+
+table.foundation-header {
+  border: $foundation-table-border;
+  border-collapse: collapse;
+
+  tr {
+    border: $foundation-table-border;
+
+    td {
+      border: $foundation-table-border;
+    }
+
+    td.foundation-name {
+      font-family: BauhausLTDemi, 'Nanum Gothic', Arial, sans-serif;
+      color: #f4f4f4;
+      font-size: 280%;
+      letter-spacing: 0.9px;
+      background-color: #ffc7c7;
+
+      padding-left: 1rem;
+    }
+
+    td.foundation-motto {
+      max-height: 0px;
+      font-weight: bold;
+      color: #a2a26c;
+      background-color: #f9f9f9;
+      padding-left: 1rem;
+    }
+
+    td.foundation-shield {
+      text-align: center;
+
+      img {
+        width: 100px;
+      }
+    }
+  }
+}
+
+.below-foundation-header {
+  margin-top: -19px;
+  padding: 8px;
+  border: $foundation-table-border;
 }
 
 // classes

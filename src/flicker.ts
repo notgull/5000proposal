@@ -1,5 +1,5 @@
 /*
- * index.tsx
+ * flicker.js
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,25 +30,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// scss imports
-import "./styles.scss";
+function doFlicker(el: HTMLElement) {
+  el.style.color = Math.random() > 0.5 ? "inherit" : "rgba(0,0,0,0)";
+  setTimeout(() => { doFlicker(el); }, 50);
+}
 
-import { h, render } from "preact";
-import { Datapad } from "./datapad";
-
-export { DatapadEntry } from "./entry";
-import { DatapadEntry, Directives } from "./entry";
-
-import { setupFlicker } from "./flicker";
-
-import { ScpFoundationHeader } from "./scp-foundation-header";
-
-export function doRender(entries: Array<DatapadEntry | Directives>, host: HTMLElement) {
-  setupFlicker();
- 
-  for (const scpH of Array.prototype.slice.call(document.getElementsByClassName("scp-header"))) {
-    render(<ScpFoundationHeader />, scpH);
-  }
-
-  render(<Datapad entries={entries} />, host);
+export function setupFlicker() {
+  Array.prototype.slice.call(document.getElementsByClassName("flicker")).forEach((el: HTMLElement) => { doFlicker(el); });
 }

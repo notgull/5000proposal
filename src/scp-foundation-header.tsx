@@ -1,5 +1,5 @@
 /*
- * index.tsx
+ * scp-foundation-header.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,25 +30,18 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// scss imports
-import "./styles.scss";
+import { h, render, Component } from "preact";
 
-import { h, render } from "preact";
-import { Datapad } from "./datapad";
+export function ScpFoundationHeader(props: {}) {
+  const mottoWidth = 20;
 
-export { DatapadEntry } from "./entry";
-import { DatapadEntry, Directives } from "./entry";
-
-import { setupFlicker } from "./flicker";
-
-import { ScpFoundationHeader } from "./scp-foundation-header";
-
-export function doRender(entries: Array<DatapadEntry | Directives>, host: HTMLElement) {
-  setupFlicker();
- 
-  for (const scpH of Array.prototype.slice.call(document.getElementsByClassName("scp-header"))) {
-    render(<ScpFoundationHeader />, scpH);
-  }
-
-  render(<Datapad entries={entries} />, host);
+  return (
+    <table style="width: 100%" class="foundation-header">
+      <tr>
+        <td class="foundation-shield"><img src="http://scp-sandbox-3.wdfiles.com/local--files/collab%3Amacwarren-notgull-5kon/logo.png" /></td>
+        <td class="foundation-name">SCP Foundation</td>
+        <td class="foundation-motto" style={`width: ${mottoWidth}%`}>Secure<br />Contain<br />Protect<br /></td>
+      </tr>
+    </table>
+  );
 }

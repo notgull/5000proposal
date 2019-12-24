@@ -96,7 +96,6 @@ export class LoadedFile extends Component<LoadedFileProps, LoadedFileState> {
   }
 
   componentDidUpdate(prevProps: LoadedFileProps) {
-    console.log(`Old Name: ${prevProps.name}\nNew Name: ${this.props.name}`);
     if (this.props.name !== prevProps.name) {
       this.setState((s: LoadedFileState): LoadedFileState => {
         return Object.assign({}, s, { curname: this.props.name, isStartOfAnimation: true });

@@ -28,7 +28,7 @@ module.exports = {
   },
 
   externals: {
-    "cash-dom": "$",
+    "jquery": "$",
     "preact": "preact"
   },
 
