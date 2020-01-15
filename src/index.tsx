@@ -30,25 +30,28 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// scss imports
-import "./styles.scss";
-
 import { h, render } from "preact";
-import { Datapad } from "./datapad";
+import { Header } from "./header";
 
-export { DatapadEntry } from "./entry";
-import { DatapadEntry, Directives } from "./entry";
+import * as $ from "jquery";
 
-import { setupFlicker } from "./flicker";
+import "./style.scss";
 
-import { ScpFoundationHeader } from "./scp-foundation-header";
-
-export function doRender(entries: Array<DatapadEntry | Directives>, host: HTMLElement) {
-  setupFlicker();
+$(() => {
+  const root = document.getElementById("root"); 
  
-  for (const scpH of Array.prototype.slice.call(document.getElementsByClassName("scp-header"))) {
-    render(<ScpFoundationHeader />, scpH);
+  if (root) {
+    render(
+      <div style="width: 100%">
+        <Header />
+        <div id="main-body">
+          <h1>Army Emerges from Ruins, takes New Tanston City and Borough City, threatens to take world</h1>
+          <h2>by Christopher Arch</h2>
+          <hr />
+          <p>It was a surprise to the entire world when a signal was broadcasted from the bottom of the New Pacific Ocean&#8212; in encoding that hadn't been seen for hundreds of years. It was another surprise when an island suddenly appeared where that signal had been sent from. As of two hours ago, the world has recieved another surprise in the form of the sudden military conquest of two port cities.</p>
+          <p>The original appearance of the signal.</p>
+        </div>
+      </div>
+    ,root);
   }
-
-  render(<Datapad entries={entries} />, host);
-}
+});

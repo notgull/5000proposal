@@ -1,5 +1,5 @@
 /*
- * scroll-area.tsx
+ * header.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,60 +30,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { h, Component } from "preact";
+import { h } from "preact";
 
-export interface ScrollAreaProps {
-  unique: number;
-  inner: HTMLElement;
-  style: string;
-}
-
-export interface ScrollAreaState {
-  scanlineWidth: string;
-}
-
-export class ScrollArea extends Component<ScrollAreaProps, ScrollAreaState> {
-  innerRef: HTMLElement | null;
-
-  constructor(props: ScrollAreaProps) {
-    super(props);
-    this.innerRef = null;
-    this.state = {
-      scanlineWidth: "100%"
-    };
-  }
-
-  updateInnerRef() {
-    console.log(`Updating scroller inner ref, unique value is ${this.props.unique}`);
-    if (this.innerRef) {
-      this.innerRef.innerHTML = "";
-      this.innerRef.appendChild(this.props.inner);
-      this.innerRef.scrollTop = 0;
-    }
-  }
-
-  setInnerRef(elem: HTMLElement | null) {
-    this.innerRef = elem;
-    this.updateInnerRef();
-  }
-
-  componentDidUpdate(prevProps: ScrollAreaProps) {
-    console.log(`previous unique = ${prevProps.unique}, current is ${this.props.unique}`);
-    if (prevProps.unique !== this.props.unique) {
-      console.log("Beginning innerRef run");
-      this.updateInnerRef();
-    }
-  }
-
-  render() {
-    const scanlineStyle = {
-      width: this.state.scanlineWidth
-    };
-
-    return (
-      <div id="datapad-scroll-area" class={this.props.style} ref={this.setInnerRef.bind(this)}>
-        {this.props.children}
+export function Header(props: {}) {
+  return (
+    <div id="header">
+      <h1 id="logo">Truevers International Press</h1>
+      <div id="links">
+        <div class="links">
+          <a>News</a>
+          <a>Entertainment</a>
+          <a>Lifestyle</a>
+          <a>Technology</a>
+          <a>Opinion</a>
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
