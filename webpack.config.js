@@ -1,3 +1,5 @@
+const marked = require("marked");
+
 module.exports = {
   mode: "production",
   devtool: "source-map",
@@ -23,7 +25,27 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [ "style-loader", "css-loader", "sass-loader" ]
-      }
+      },
+      {
+        test: /\.svg$/i,
+        use: 'raw-loader'
+      },
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: "raw-loader"
+          },
+          {
+            loader: "markdown-loader",
+            options: { }
+          }
+        ]
+      },
+      {
+        test: /\.html$/,
+        use: "raw-loader"
+      }, 
     ]
   },
 

@@ -1,5 +1,5 @@
 /*
- * header.tsx
+ * body.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -31,48 +31,3 @@
  */
 
 import { h, Component } from "preact";
-
-import printerLogo from "./printer.svg";
-
-const height = "40px";
-
-export class Header extends Component<{}, {}> {
-  innerRef: HTMLElement | null;
-
-  constructor(props: {}) {
-    super(props);
-
-    this.innerRef = null;
-  }
-
-  updateInnerRef() {
-    if (this.innerRef) {
-      this.innerRef.innerHTML = printerLogo;
-    }
-  }
-
-  setInnerRef(ref: HTMLElement | null) {
-    this.innerRef = ref;
-    this.updateInnerRef();
-  }
-
-  render() {
-    return (
-      <div id="header">
-        <h1 id="logo" style={{"font-size": height}}>
-          <span ref={this.setInnerRef.bind(this)} />
-          Truevers International Press
-        </h1>
-        <div id="links">
-          <div class="links">
-            <a>News</a>
-            <a>Entertainment</a>
-            <a>Lifestyle</a>
-            <a>Technology</a>
-            <a>Opinion</a>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}

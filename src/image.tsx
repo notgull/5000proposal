@@ -1,5 +1,5 @@
 /*
- * header.tsx
+ * image.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,49 +30,34 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { h, Component } from "preact";
+import { h } from "preact";
 
-import printerLogo from "./printer.svg";
+export interface ImageProps {
+  src: string;
+  align: "left" | "center" | "right";
+  caption: string;
+  width: number;
+}
 
-const height = "40px";
+export function Image(props: ImageProps) {
+  const style = {
+    "float": props.align,
+    "text-align": props.align,
+    width: `${props.width}px`,
+    margin: "0 auto",
+    padding: "10px"
+  };
 
-export class Header extends Component<{}, {}> {
-  innerRef: HTMLElement | null;
-
-  constructor(props: {}) {
-    super(props);
-
-    this.innerRef = null;
-  }
-
-  updateInnerRef() {
-    if (this.innerRef) {
-      this.innerRef.innerHTML = printerLogo;
-    }
-  }
-
-  setInnerRef(ref: HTMLElement | null) {
-    this.innerRef = ref;
-    this.updateInnerRef();
-  }
-
-  render() {
-    return (
-      <div id="header">
-        <h1 id="logo" style={{"font-size": height}}>
-          <span ref={this.setInnerRef.bind(this)} />
-          Truevers International Press
-        </h1>
-        <div id="links">
-          <div class="links">
-            <a>News</a>
-            <a>Entertainment</a>
-            <a>Lifestyle</a>
-            <a>Technology</a>
-            <a>Opinion</a>
-          </div>
-        </div>
+  const widthStyle = {
+    width: `${props.width}px`
+  };
+ 
+  return (
+    <div class="image-block" style={style}>
+      <img src={props.src} style={widthStyle} alt={props.src} />
+      <div class="caption" style={widthStyle}>
+        {props.caption}
       </div>
-    );
-  }
+    </div>
+  );
 }

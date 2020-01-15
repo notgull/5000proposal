@@ -1,5 +1,5 @@
 /*
- * header.tsx
+ * markdown.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -32,47 +32,32 @@
 
 import { h, Component } from "preact";
 
-import printerLogo from "./printer.svg";
+import part1 from "./part1.md";
 
-const height = "40px";
+export interface MarkdownProps {
+  filename: "part1"
+}
 
-export class Header extends Component<{}, {}> {
+export class Markdown extends Component<MarkdownProps, {}> {
   innerRef: HTMLElement | null;
-
-  constructor(props: {}) {
+  constructor(props: MarkdownProps) {
     super(props);
-
     this.innerRef = null;
-  }
-
-  updateInnerRef() {
-    if (this.innerRef) {
-      this.innerRef.innerHTML = printerLogo;
-    }
   }
 
   setInnerRef(ref: HTMLElement | null) {
     this.innerRef = ref;
-    this.updateInnerRef();
+    if (this.innerRef) {
+      switch (this.props.filename) {
+        case "part1": this.innerRef.innerHTML = part1; break;
+        default: throw new Error("Unreachable code");
+      }
+    }
   }
 
   render() {
     return (
-      <div id="header">
-        <h1 id="logo" style={{"font-size": height}}>
-          <span ref={this.setInnerRef.bind(this)} />
-          Truevers International Press
-        </h1>
-        <div id="links">
-          <div class="links">
-            <a>News</a>
-            <a>Entertainment</a>
-            <a>Lifestyle</a>
-            <a>Technology</a>
-            <a>Opinion</a>
-          </div>
-        </div>
-      </div>
+      <div ref={this.setInnerRef.bind(this)} />
     );
   }
 }

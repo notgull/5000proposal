@@ -32,6 +32,8 @@
 
 import { h, render } from "preact";
 import { Header } from "./header";
+import { Image } from "./image";
+import { Markdown } from "./markdown";
 
 import * as $ from "jquery";
 
@@ -46,10 +48,11 @@ $(() => {
         <Header />
         <div id="main-body">
           <h1>Army Emerges from Ruins, takes New Tanston City and Borough City, threatens to take world</h1>
-          <h2>by Christopher Arch</h2>
+          <h2>by <a>Christopher Arch</a></h2>
           <hr />
-          <p>It was a surprise to the entire world when a signal was broadcasted from the bottom of the New Pacific Ocean&#8212; in encoding that hadn't been seen for hundreds of years. It was another surprise when an island suddenly appeared where that signal had been sent from. As of two hours ago, the world has recieved another surprise in the form of the sudden military conquest of two port cities.</p>
-          <p>The original appearance of the signal.</p>
+          <Image src="military.gif" width={600} align="center" caption="The New Pacific Army marching through Borough City. Footage source unknown." />
+          <hr />
+          <Markdown filename="part1" /> 
         </div>
       </div>
     ,root);
