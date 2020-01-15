@@ -69,6 +69,8 @@ export class Header extends Component<{}, {}> {
             <a>Entertainment</a>
             <a>Lifestyle</a>
             <a>Technology</a>
+            <a>Environment</a>
+            <a>Restoration</a>
             <a>Opinion</a>
           </div>
         </div>

@@ -1,5 +1,5 @@
 /*
- * index.tsx
+ * phenomena.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,34 +30,35 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { doPhenomena } from "./phenomena";
-import { h, render } from "preact";
-import { Header } from "./header";
-import { Image } from "./image";
-import { Markdown } from "./markdown";
-
 import * as $ from "jquery";
 
-import "./style.scss";
-
-$(() => {
-  const root = document.getElementById("root"); 
- 
-  if (root) {
-    render(
-      <div style="width: 100%">
-        <Header />
-        <div id="main-body">
-          <h1>Army Emerges from Ruins, takes New Tanston City and Borough City, threatens to take world</h1>
-          <h2>by <a>Christopher Arch</a></h2>
-          <hr />
-          <Image src="military.gif" width={600} align="center" caption="The New Pacific Army marching through Borough City. Footage source unknown." />
-          <hr />
-          <Markdown filename="part1" /> 
-        </div>
-      </div>
-    ,root);
+const blue = "#eaefff";
+const red = "#ff00de";
+const jBody = $(document.body);
+function backgroundFlicker(chances: number) {
+  let rng = Math.random();
+  if (rng < chances / 100) {
+    jBody.css("background-color", red);
+  } else {
+    jBody.css("background-color", blue);
   }
 
-  $(document).scroll(doPhenomena);
-});
+  rng = Math.random();
+  if (rng > 0.55) {
+    chances += 1;
+    console.log("Increasing chances...");
+  }
+
+  setTimeout(() => backgroundFlicker(chances), 10);
+}
+
+let alreadyBegun = false;
+export function doPhenomena() {
+  if (alreadyBegun) {
+    return;
+  } else {
+    alreadyBegun = true;
+  }
+
+  backgroundFlicker(0);
+}
