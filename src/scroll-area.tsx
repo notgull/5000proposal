@@ -1,5 +1,5 @@
 /*
- * flicker.js
+ * scroll-area.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,11 +30,60 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-function doFlicker(el: HTMLElement) {
-  el.style.color = Math.random() > 0.5 ? "inherit" : "rgba(0,0,0,0)";
-  setTimeout(() => { doFlicker(el); }, 300);
+import { h, Component } from "preact";
+
+export interface ScrollAreaProps {
+  unique: number;
+  inner: HTMLElement;
+  style: string;
 }
 
-export function setupFlicker() {
-  Array.prototype.slice.call(document.getElementsByClassName("flicker")).forEach((el: HTMLElement) => { doFlicker(el); });
+export interface ScrollAreaState {
+  scanlineWidth: string;
+}
+
+export class ScrollArea extends Component<ScrollAreaProps, ScrollAreaState> {
+  innerRef: HTMLElement | null;
+
+  constructor(props: ScrollAreaProps) {
+    super(props);
+    this.innerRef = null;
+    this.state = {
+      scanlineWidth: "100%"
+    };
+  }
+
+  updateInnerRef() {
+    console.log(`Updating scroller inner ref, unique value is ${this.props.unique}`);
+    if (this.innerRef) {
+      this.innerRef.innerHTML = "";
+      this.innerRef.appendChild(this.props.inner);
+      this.innerRef.scrollTop = 0;
+    }
+  }
+
+  setInnerRef(elem: HTMLElement | null) {
+    this.innerRef = elem;
+    this.updateInnerRef();
+  }
+
+  componentDidUpdate(prevProps: ScrollAreaProps) {
+    console.log(`previous unique = ${prevProps.unique}, current is ${this.props.unique}`);
+    if (prevProps.unique !== this.props.unique) {
+      console.log("Beginning innerRef run");
+      this.updateInnerRef();
+    }
+  }
+
+  render() {
+    const scanlineStyle = {
+      width: this.state.scanlineWidth
+    };
+
+    return (
+      <div id="datapad-scroll-area" class={this.props.style} ref={this.setInnerRef.bind(this)}>
+        {this.props.children}
+      </div>
+    );
+  }
 }

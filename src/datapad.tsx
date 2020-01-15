@@ -33,6 +33,7 @@
 import { DatapadEntry, Directives } from "./entry";
 import { h, render, Component } from "preact";
 import { LoadedFile } from "./loaded-file";
+import { ScrollArea } from "./scroll-area";
 
 export interface DatapadProps {
   entries: Array<DatapadEntry | Directives>;
@@ -46,12 +47,8 @@ export interface DatapadState {
 }
 
 export class Datapad extends Component<DatapadProps, DatapadState> {
-  innerRef: HTMLElement | null;
-
   constructor(props: DatapadProps) {
     super(props);
-
-    this.innerRef = null;
 
     this.state = {
       currentEntry: this.props.entries[0] as DatapadEntry,
@@ -59,24 +56,6 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
 
       isolatedContext: false
     };
-  }
-
-  updateInnerRef() {
-    if (this.innerRef) {
-      this.innerRef.innerHTML = ""; 
-      this.innerRef.appendChild(this.state.currentEntry.element);
-    }
-  }
-
-  setInnerRef(elem: HTMLElement | null) {
-    this.innerRef = elem;
-    this.updateInnerRef();
-  }
-
-  componentDidUpdate(prevProps: DatapadProps, prevState: DatapadState) {
-    if (prevState.currentIndex !== this.state.currentIndex) {
-      this.updateInnerRef();
-    }
   }
 
   // move to the iteration at the given index
@@ -135,7 +114,8 @@ export class Datapad extends Component<DatapadProps, DatapadState> {
         <p id="datapad-label-top">Paragon Technologies</p>
         <p id="datapad-label">DATAPAD</p>
         <LoadedFile name={this.state.currentEntry.fname} />
-        <div class={this.state.currentEntry.classname} id="datapad-scroll-area" ref={this.setInnerRef.bind(this)} />
+
+        <ScrollArea style={this.state.currentEntry.classname} inner={this.state.currentEntry.element} unique={this.state.currentIndex} />
         <table id="datapad-pager">
           <tr style="font-size: 500%; text-align: center">
             <td style={tdStyle}>
