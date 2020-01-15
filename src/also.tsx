@@ -39,7 +39,7 @@ export function Also(props: {}) {
       <span class="related">Related News</span>
       <Image src="stars.jpg" align="center" caption="Do the stars look like eyes to you? Try this." width={200} />
       <p />
-      <Image src="starfish.jpg" align="center" caption="The amazing return of the starfish, 1000 years after it went extinct" width={200} />
+      <Image src="starfish.jpg" align="center" caption="The return of the starfish, 1000 years after it went extinct" width={200} />
       <p />
       <Image src="woman.jpg" align="center" caption="Meet the AMAZING woman who gave birth to five children" width={200} /> 
       <p />

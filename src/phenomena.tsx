@@ -38,7 +38,6 @@ let jBody: JQuery;
 function backgroundFlicker(chances: number) {
   let rng = Math.random();
   if (rng < chances / 1000) {
-    console.log("RED");
     jBody.css("background-color", red);
     setTimeout(remainder, 500);
   } else {
@@ -48,10 +47,14 @@ function backgroundFlicker(chances: number) {
 
   function remainder() {
     rng = Math.random();
+    if (rng < chances / 10000) {
+      $("img").attr("src", "fifth.jpg");
+    }
+
+    rng = Math.random();
     let newChances = chances;
-    if (rng > 0.99) {
+    if (rng > 0.991) {
       newChances += 1;
-      console.log("Increasing chances...");
     }
 
     setTimeout(() => backgroundFlicker(newChances), 10);
