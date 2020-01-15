@@ -31,11 +31,21 @@
  */
 
 import * as $ from "jquery";
+import { h, render } from "preact";
+import { Modal } from "./modal";
+
+let cancelled = false;
+
+function doCancel() {
+  cancelled = true;
+}
 
 const blue = "#eaefff";
 const red = "#ff00de";
 let jBody: JQuery;
 function backgroundFlicker(chances: number) {
+  if (cancelled) return;
+
   let rng = Math.random();
   if (rng < chances / 1000) {
     jBody.css("background-color", red);
@@ -46,9 +56,10 @@ function backgroundFlicker(chances: number) {
   }
 
   function remainder() {
-    rng = Math.random();
     if (rng < chances / 10000) {
       $("img").attr("src", "fifth.jpg");
+  
+      setTimeout(fifthify, 555 * 2);
     }
 
     rng = Math.random();
@@ -61,6 +72,37 @@ function backgroundFlicker(chances: number) {
   }
 }
 
+function fifthify() {
+  $("body").find("p").each((index: number, el: HTMLElement) => {
+    const wordCount = el.innerHTML.split(" ").length;
+    let fifth = Array(wordCount);
+    fifth.fill("fifth");
+    el.innerHTML = fifth.join(" ");
+  });
+
+  setTimeout(doModal, 555 * 2);
+}
+
+let alreadyModal = false;
+
+function doModal() {
+  if (alreadyModal) {
+    return;
+  } else {
+    alreadyModal = true;
+  }
+
+  const modalRoot = $("<div>").css({
+    "z-index": 2,
+    width: "100%",
+    height: "20000px",
+    position: "absolute",
+    "top": 0,
+    left: 0
+  }).appendTo(document.body);  
+  render(<Modal cancel={doCancel} />, modalRoot.get(0));
+}
+
 let alreadyBegun = false;
 export function doPhenomena() {
   if (alreadyBegun) {
@@ -69,7 +111,8 @@ export function doPhenomena() {
     alreadyBegun = true;
   }
 
-  jBody = $("body");
-
-  backgroundFlicker(0);
+  setTimeout(() => {
+    jBody = $("body");
+    backgroundFlicker(0);
+  }, 5555);
 }
