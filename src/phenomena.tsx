@@ -46,19 +46,47 @@ function setVolume(vol: number) {
   music.volume = vol;
 }
 
-const blue = "#eaefff";
-const red = "#ff00de";
+const blue = [234, 239, 255];
+const red = [255, 0, 222];
+const sliderIters = 5;
 let jBody: JQuery;
+
+function backgroundSlider(next: () => void) {
+  const rIter = red[0] - blue[0];
+  const gIter = red[1] - blue[1];
+  const bIter = red[2] - blue[2];
+
+  let r = blue[0], g = blue[1], b = blue[2];
+  function iter(iternum: number) {
+    if (iternum >= 10) {
+      next();
+      return;
+    }
+ 
+    if (iternum < 5) {
+      r += rIter;
+      g += gIter;
+      b += bIter;
+    } else {
+      r -= rIter;
+      g -= gIter;
+      b -= bIter;
+    }
+
+    jBody.css("background-color", `rgb(${r}, ${g}, ${b})`);
+    setTimeout(() => iter(iternum + 1), 100);
+  }
+  iter(0); 
+}
+
 function backgroundFlicker(chances: number) {
   if (cancelled) return;
 
   let rng = Math.random();
   if (rng < chances / 1000) {
-    jBody.css("background-color", red);
     music.play();
-    setTimeout(remainder, 500);
+    backgroundSlider(remainder);
   } else {
-    jBody.css("background-color", blue);
     remainder();
   }
 
