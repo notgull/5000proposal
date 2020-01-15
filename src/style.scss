@@ -1,5 +1,5 @@
 /*
- * entry.ts
+ * style.scss
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,26 +30,88 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// an entry in the datapad
-export class DatapadEntry {
-  element: HTMLElement;
- 
-  constructor(
-    public iname: string,
-    public fname: string,
-    public classname: string,
-    element: HTMLElement | string
-  ) {
-    if (typeof element === "string") {
-      const retrElem = document.getElementById(<string> element);
-      if (!retrElem) {
-        throw new Error("Retrieved null element");
+@import url('https://fonts.googleapis.com/css?family=Teko&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+$deep_blue: #88a3fb;
+
+%middle {
+  position: relative;
+  margin: 2em auto 0px;
+  max-width: 900px; 
+}
+
+#header {
+  width: 100%; 
+  background-color: #d1dcff;
+
+  h1#logo {
+    font-family: Teko;
+    font-size: 200%;
+    margin-top: 0;
+    color: $deep_blue;
+    @extend %middle;
+  }
+
+  div#links {
+
+    width: 100%;
+    display: block;
+    background-image: linear-gradient(#333333, #5a5a5a, #333333);
+    margin-top: -30px;
+    
+    .links {
+      @extend %middle;
+
+      font-family: Muli sans-serif;
+
+      a { 
+        color: white; 
+        margin: 0 5px;
+      } 
+      a:hover {
+        background-color: #003cff;
+        color: black;
       }
-      this.element = retrElem;
-    } else {
-      this.element = <HTMLElement> element;
     }
   }
 }
 
-export type Directives = "stop";
+#main-body {
+  @extend %middle;
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 20px;
+
+  h1 {
+    margin-top: 0px;
+  }
+
+  a {
+    text-decoration: none;
+    border-bottom: 3px solid $deep_blue;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: $deep_blue;
+  }
+
+  a:visited {
+    color: $deep_blue;
+  }
+}
+
+.image-block {
+  border: solid 1px#666;
+  box-shadow: 0 1px 6px rgba(0,0,0,.25);
+  margin: 0 2em 1em 2em;
+
+  .caption {
+    text-align: center;
+    padding: 2px 1px;
+    font-weight: bold;
+    font-size: 90%;
+    color: #424951;
+  }
+}

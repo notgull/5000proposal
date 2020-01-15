@@ -1,5 +1,5 @@
 /*
- * flicker.js
+ * markdown.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,11 +30,34 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-function doFlicker(el: HTMLElement) {
-  el.style.color = Math.random() > 0.5 ? "inherit" : "rgba(0,0,0,0)";
-  setTimeout(() => { doFlicker(el); }, 50);
+import { h, Component } from "preact";
+
+import part1 from "./part1.md";
+
+export interface MarkdownProps {
+  filename: "part1"
 }
 
-export function setupFlicker() {
-  Array.prototype.slice.call(document.getElementsByClassName("flicker")).forEach((el: HTMLElement) => { doFlicker(el); });
+export class Markdown extends Component<MarkdownProps, {}> {
+  innerRef: HTMLElement | null;
+  constructor(props: MarkdownProps) {
+    super(props);
+    this.innerRef = null;
+  }
+
+  setInnerRef(ref: HTMLElement | null) {
+    this.innerRef = ref;
+    if (this.innerRef) {
+      switch (this.props.filename) {
+        case "part1": this.innerRef.innerHTML = part1; break;
+        default: throw new Error("Unreachable code");
+      }
+    }
+  }
+
+  render() {
+    return (
+      <div ref={this.setInnerRef.bind(this)} />
+    );
+  }
 }

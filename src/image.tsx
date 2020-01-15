@@ -1,5 +1,5 @@
 /*
- * index.tsx
+ * image.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,31 +30,34 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { h, render } from "preact";
-import { Header } from "./header";
-import { Image } from "./image";
-import { Markdown } from "./markdown";
+import { h } from "preact";
 
-import * as $ from "jquery";
+export interface ImageProps {
+  src: string;
+  align: "left" | "center" | "right";
+  caption: string;
+  width: number;
+}
 
-import "./style.scss";
+export function Image(props: ImageProps) {
+  const style = {
+    "float": props.align,
+    "text-align": props.align,
+    width: `${props.width}px`,
+    margin: "0 auto",
+    padding: "10px"
+  };
 
-$(() => {
-  const root = document.getElementById("root"); 
+  const widthStyle = {
+    width: `${props.width}px`
+  };
  
-  if (root) {
-    render(
-      <div style="width: 100%">
-        <Header />
-        <div id="main-body">
-          <h1>Army Emerges from Ruins, takes New Tanston City and Borough City, threatens to take world</h1>
-          <h2>by <a>Christopher Arch</a></h2>
-          <hr />
-          <Image src="military.gif" width={600} align="center" caption="The New Pacific Army marching through Borough City. Footage source unknown." />
-          <hr />
-          <Markdown filename="part1" /> 
-        </div>
+  return (
+    <div class="image-block" style={style}>
+      <img src={props.src} style={widthStyle} alt={props.src} />
+      <div class="caption" style={widthStyle}>
+        {props.caption}
       </div>
-    ,root);
-  }
-});
+    </div>
+  );
+}
