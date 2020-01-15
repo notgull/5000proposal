@@ -11,3 +11,7 @@ The original appearance of the signal was linked to the upload of the "SCP-5000"
 > BRING TH<tt>?</tt> K<tt>?</tt>Y TO TH<tt>?</tt> DOOR AND W<tt>?</tt> WILL UNIT<tt>?</tt> AGAIN
 
 George Mote, the founder of scp-wiki.net, has denied all involvement in what has been called "The New Pacific Army". However, Charles Gears, Mote's associate, acknowledges that the archival site may have had some role in the recent phenomena. "The SCP Foundation was always an idea," Gears says, "an idea that disappeared a long time ago. It was only a matter of time before we brought it back." 
+
+Even after scp-wiki.net was brought down, the army has still continued to march onwards. Truevers Internation Experts believe that, given the current path of the New Pacific Army, it will try to conquer Ellensberg within the next two days.
+
+It has been theorized that the appearance of the Army is related to the recent rise in paranormal phenomena. This theory is still awaiting confirmation.

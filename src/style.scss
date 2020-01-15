@@ -40,7 +40,7 @@ $white_border: 1px solid white;
 %middle {
   position: relative;
   margin: 2em auto 0px;
-  max-width: 900px; 
+  max-width: 1000px; 
 }
 
 #header {
@@ -116,5 +116,25 @@ $white_border: 1px solid white;
     font-weight: bold;
     font-size: 90%;
     color: #424951;
+  }
+}
+
+$gray: gray;
+
+#also {
+  border: 1px solid $gray;
+  margin: 5px;
+  padding: 10px;
+  padding-top: 0px;
+  float: right;
+  text-align: center;
+
+  .related {
+    font-size: 65%;
+    color: $gray;
+  }
+
+  .caption {
+    font-size: 60%;
   }
 }

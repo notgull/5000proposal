@@ -30,6 +30,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import { Also } from "./also";
 import { doPhenomena } from "./phenomena";
 import { h, render } from "preact";
 import { Header } from "./header";
@@ -53,6 +54,7 @@ $(() => {
           <hr />
           <Image src="military.gif" width={600} align="center" caption="The New Pacific Army marching through Borough City. Footage source unknown." />
           <hr />
+          <Also />
           <Markdown filename="part1" /> 
         </div>
       </div>

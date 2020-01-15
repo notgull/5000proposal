@@ -1,5 +1,5 @@
 /*
- * phenomena.tsx
+ * also.tsx
  * 
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -30,43 +30,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as $ from "jquery";
+import { h } from "preact";
+import { Image } from "./image";
 
-const blue = "#eaefff";
-const red = "#ff00de";
-let jBody: JQuery;
-function backgroundFlicker(chances: number) {
-  let rng = Math.random();
-  if (rng < chances / 1000) {
-    console.log("RED");
-    jBody.css("background-color", red);
-    setTimeout(remainder, 500);
-  } else {
-    jBody.css("background-color", blue);
-    remainder();
-  }
-
-  function remainder() {
-    rng = Math.random();
-    let newChances = chances;
-    if (rng > 0.99) {
-      newChances += 1;
-      console.log("Increasing chances...");
-    }
-
-    setTimeout(() => backgroundFlicker(newChances), 10);
-  }
-}
-
-let alreadyBegun = false;
-export function doPhenomena() {
-  if (alreadyBegun) {
-    return;
-  } else {
-    alreadyBegun = true;
-  }
-
-  jBody = $("body");
-
-  backgroundFlicker(0);
+export function Also(props: {}) {
+  return (
+    <div id="also">
+      <span class="related">Related News</span>
+      <Image src="stars.jpg" align="center" caption="Do the stars look like eyes to you? Try this." width={200} />
+      <p />
+      <Image src="starfish.jpg" align="center" caption="The amazing return of the starfish, 1000 years after it went extinct" width={200} />
+      <p />
+      <Image src="woman.jpg" align="center" caption="Meet the AMAZING woman who gave birth to five children" width={200} /> 
+      <p />
+      <Image src="flowers.jpg" align="center" caption="Unseasonal pink flowers dot the western hemisphere" width={200} />
+    </div>
+  );
 }
