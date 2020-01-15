@@ -34,6 +34,7 @@ import { h, Component } from "preact";
 
 export interface ModalProps {
   cancel: () => void;
+  volume: (x: number) => void;
 }
 
 export interface ModalState {
@@ -41,6 +42,7 @@ export interface ModalState {
   g: number;
   b: number;
   a: number;  
+  musicVolume: number;
 }
 
 const aIncrement = 0.01;
@@ -60,7 +62,8 @@ export class Modal extends Component<ModalProps, ModalState> {
       r: 255,
       g: 106,
       b: 250,
-      a: 0
+      a: 0,
+      musicVolume: 1
     };
 
     this.rSection = this.state.r / cTimes;
@@ -70,6 +73,7 @@ export class Modal extends Component<ModalProps, ModalState> {
 
   updateColor() {
     if (this.state.r <= 0 && this.state.g <= 0 && this.state.b <= 0) {
+      this.props.cancel();
       const jBody = $("body");
       jBody.css("background-color", "black");
       jBody.empty();
@@ -84,17 +88,22 @@ export class Modal extends Component<ModalProps, ModalState> {
       if (newR < 0) newR = 0;
       if (newG < 0) newG = 0;
       if (newB < 0) newB = 0;
+ 
+      let volume = prevState.musicVolume - (1 / cTimes);
+      volume = volume > 0 ? volume : 0;
+      this.props.volume(volume);
+
       return Object.assign({}, prevState, {
         r: newR,
         g: newG,
-        b: newB
+        b: newB,
+        musicVolume: volume
       });
     }, () => setTimeout(this.updateColor.bind(this), cDelay));
   }
 
   updateAlpha() {
     if (this.state.a >= 1.0) { 
-      this.props.cancel();
       setTimeout(this.updateColor.bind(this), cDelay);
       return;
     }

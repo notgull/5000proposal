@@ -35,9 +35,15 @@ import { h, render } from "preact";
 import { Modal } from "./modal";
 
 let cancelled = false;
+const music = new Audio("scary_music_cut.mp3");
 
 function doCancel() {
   cancelled = true;
+  music.pause();
+}
+
+function setVolume(vol: number) {
+  music.volume = vol;
 }
 
 const blue = "#eaefff";
@@ -49,6 +55,7 @@ function backgroundFlicker(chances: number) {
   let rng = Math.random();
   if (rng < chances / 1000) {
     jBody.css("background-color", red);
+    music.play();
     setTimeout(remainder, 500);
   } else {
     jBody.css("background-color", blue);
@@ -56,10 +63,11 @@ function backgroundFlicker(chances: number) {
   }
 
   function remainder() {
+    rng = Math.random();
     if (rng < chances / 10000) {
       $("img").attr("src", "fifth.jpg");
   
-      setTimeout(fifthify, 555 * 2);
+      setTimeout(fifthify, 555 * 5);
     }
 
     rng = Math.random();
@@ -100,7 +108,7 @@ function doModal() {
     "top": 0,
     left: 0
   }).appendTo(document.body);  
-  render(<Modal cancel={doCancel} />, modalRoot.get(0));
+  render(<Modal cancel={doCancel} volume={setVolume} />, modalRoot.get(0));
 }
 
 let alreadyBegun = false;
