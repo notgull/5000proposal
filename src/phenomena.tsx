@@ -36,10 +36,12 @@ import { Modal } from "./modal";
 
 let cancelled = false;
 const music = new Audio("scary_music_cut.mp3");
+let timeout: any;
 
 function doCancel() {
   cancelled = true;
   music.pause();
+  clearTimeout(timeout);
 }
 
 function setVolume(vol: number) {
@@ -52,9 +54,9 @@ const sliderIters = 5;
 let jBody: JQuery;
 
 function backgroundSlider(next: () => void) {
-  const rIter = red[0] - blue[0];
-  const gIter = red[1] - blue[1];
-  const bIter = red[2] - blue[2];
+  const rIter = (red[0] - blue[0])/sliderIters;
+  const gIter = (red[1] - blue[1])/sliderIters;
+  const bIter = (red[2] - blue[2])/sliderIters;
 
   let r = blue[0], g = blue[1], b = blue[2];
   function iter(iternum: number) {
@@ -74,7 +76,7 @@ function backgroundSlider(next: () => void) {
     }
 
     jBody.css("background-color", `rgb(${r}, ${g}, ${b})`);
-    setTimeout(() => iter(iternum + 1), 100);
+    timeout = setTimeout(() => iter(iternum + 1), 100);
   }
   iter(0); 
 }

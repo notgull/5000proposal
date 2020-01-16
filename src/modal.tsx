@@ -30,6 +30,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import { attribution } from "./attribution";
 import { h, Component } from "preact";
 
 export interface ModalProps {
@@ -74,10 +75,7 @@ export class Modal extends Component<ModalProps, ModalState> {
   updateColor() {
     if (this.state.r <= 0 && this.state.g <= 0 && this.state.b <= 0) {
       this.props.cancel();
-      const jBody = $("body");
-      jBody.css("background-color", "black");
-      jBody.empty();
-      $("<div>").appendTo(jBody).attr("id", "attributions").text("TODO: attributions");
+      attribution();
       return;
     }
 
