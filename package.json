@@ -9,7 +9,7 @@
     "jquery": "^3.4.1",
     "markdown-loader": "^5.1.0",
     "marked": "^0.8.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "preact": "^10.1.1",
     "raw-loader": "^4.0.0",
     "sass-loader": "^8.0.0",
